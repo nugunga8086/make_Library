@@ -2,12 +2,10 @@
 
 #include <vector>
 #include <cstdio>
-
-using namespace std;
+#include <cstring>
 
 typedef const char* Chs_t;
 typedef const wchar_t* Wcs_t;
-typedef const wstring Wstr;
 
 struct JString
 {
@@ -15,7 +13,7 @@ public:
 	JString();
 	JString(Chs_t p_value);
 	JString(Wcs_t p_value);
-	JString(Wstr p_value);
+	JString(wstring p_value);
 	JString(JString* p_value);
 	~JString();
 
@@ -93,7 +91,7 @@ public:
 	~JStringArray();
 
 private:
-	std::vector<JString> m_Values;
+	vector<JString> m_Values;
 };
 
 /*
@@ -120,8 +118,8 @@ JString::JString()
 
 JString::JString(Chs_t p_value)
 {
-	std::string message_a = p_value;
-	std::wstring message_w;
+	string message_a = p_value;
+	wstring message_w;
 	message_w.assign(message_a.begin(), message_a.end());
 
 	m_values = message_w.c_str();
@@ -134,7 +132,7 @@ JString::JString(Wcs_t p_value)
 	m_length = wcslen(p_value);
 }
 
-JString::JString(Wstr p_value)
+JString::JString(wstring p_value)
 {
 	m_values = p_value.c_str();
 	m_length = wcslen(p_value.c_str());
@@ -172,7 +170,7 @@ bool JString::Append(JString pSelf, const JString pValue)
 		m_length = s.size();
 		return true;
 	}
-	catch (const std::exception&)
+	catch (const exception&)
 	{
 		return false;
 	}
