@@ -20,7 +20,8 @@ public:
 	JString(JString* p_value);
 	~JString();
 
-	JString nString_Join(const JString pSelf, const JString pValue);
+	JString Join(const JString pSelf, const JString pValue);
+	bool Append(const JString  pSelf, const JString pValue);
 private:
 	Wcs_t m_values;
 	size_t m_length;
@@ -144,7 +145,8 @@ JString::~JString()
 	delete &m_length;
 }
 
-JString JString::nString_Join(const JString pSelf, const JString pValue) {
+//nstring_Join
+JString JString::Join(const JString pSelf, const JString pValue) {
 	Wcs_t ws1 = pSelf.m_values, ws2 = pValue.m_values;
 	std::wstring s(ws1);
 	s += std::wstring(ws2);
