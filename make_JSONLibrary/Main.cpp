@@ -1,5 +1,4 @@
-﻿
-#include <iostream>
+﻿#include <iostream>
 #include <locale>
 
 #include "JString.hpp"
@@ -14,6 +13,7 @@ int main()
 {
     Initalized();
 
+    #pragma region Description
     // JSON을 생성하려면 크게 4가지로 JSON을 생성함.
     /*
         JSON Temp = new JSON() // 1
@@ -45,7 +45,7 @@ int main()
     // 이렇게 사용자가 편하도록 개발하면됨.
     // 또한 궁금한 사항이 있을 땐 기획자 최진원을 찾아오면 됨.
     // 또한 이거는 집에 가서도 해라, 하면 할 수 록 실력이 많이 늘거임.
-
+    #pragma endregion
 
     std::cout << "Hello World!\n";
 }

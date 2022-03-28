@@ -94,3 +94,24 @@ private:
 	Length_t           nStringAry_CountIf                 (const nStringAry_ptr  pSelf, bool (*pExpression)(nString_ptr, void *), void *pParam);
 	Length_t           nStringAry_Length                  (const nStringAry_ptr  pSelf);
 */
+
+JString::JString()
+{
+}
+
+JString::JString(Chs_t p_value)
+{
+}
+
+JString::JString(Wcs_t p_value)
+{
+}
+
+JString::JString(JString* p_value)
+{
+}
+
+JString::~JString()
+{
+
+}
