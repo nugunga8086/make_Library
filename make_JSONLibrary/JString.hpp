@@ -14,8 +14,6 @@ public:
 	JString(Wcs_t p_value);
 	JString(JString* p_value);
 	~JString();
-	
-	JString Join;
 
 
 private:
@@ -50,23 +48,23 @@ private:
 	Index_t            nString_IndexAt                    (const nString_ptr  pSelf, const nString_ptr pKeyWord, const Index_t pIndex);
 	Index_t            nString_IndexFor                   (const nString_ptr  pSelf, const nString_ptr pKeyWord, const Index_t pStart);
 	Index_t            nString_LastOfIndex                (const nString_ptr  pSelf, const nString_ptr pKeyWord);
-	nString_ptr        nString_Replace                    (const nString_ptr  pSelf, const nString_ptr pKeyWord, const nString_ptr pValue);
+	nString_ptr        nString_Replace                    (const nString_ptr  pSelf, const nString_ptr pKeyWord, const nString_ptr pValue);	
 	nString_ptr        nString_ReplaceAt                  (const nString_ptr  pSelf, const nString_ptr pKeyWord, const nString_ptr pValue, const Index_t pIndex);
 	nString_ptr        nString_ReplaceAll                 (const nString_ptr  pSelf, const nString_ptr pKeyWord, const nString_ptr pValue);
 	nStringAry_ptr     nString_Split                      (const nString_ptr  pSelf, const nString_ptr pKeyWord);
 	nString_ptr        nString_SubString                  (const nString_ptr  pSelf, const nString_ptr pKeyWord);
 	bool               nString_Pattern                    (const nString_ptr  pSelf, const nString_ptr pKeyWord);
-	bool               nString_isAlpha                    (const nString_ptr  pSelf);
-	bool               nString_isLower                    (const nString_ptr  pSelf);
-	bool               nString_isUpper                    (const nString_ptr  pSelf);
-	bool               nString_isDecimal                  (const nString_ptr  pSelf);
-	bool               nString_isDigit                    (const nString_ptr  pSelf);
-	bool               nString_isSpace                    (const nString_ptr  pSelf);
-	bool               nString_isAlphaDigit               (const nString_ptr  pSelf);
-	bool               nString_isHex                      (const nString_ptr  pSelf);
-	bool               nString_isControl                  (const nString_ptr  pSelf);
-	bool               nString_isOctal                    (const nString_ptr  pSelf);
-	bool               nString_isBinary                   (const nString_ptr  pSelf);
+	bool               nString_isAlpha                    (const nString_ptr  pSelf);		//알파벳
+	bool               nString_isLower                    (const nString_ptr  pSelf);		//소문자
+	bool               nString_isUpper                    (const nString_ptr  pSelf);		//대문자
+	bool               nString_isDecimal                  (const nString_ptr  pSelf);		//정수
+	bool               nString_isDigit                    (const nString_ptr  pSelf);		//실수
+	bool               nString_isSpace                    (const nString_ptr  pSelf);		//스페이스바
+	bool               nString_isAlphaDigit               (const nString_ptr  pSelf);		//알파벳 또는 실수
+	bool               nString_isHex                      (const nString_ptr  pSelf);		//16진수
+	bool               nString_isControl                  (const nString_ptr  pSelf);		//아스키코드 제어 문자인지 (0~32까지)
+	bool               nString_isOctal                    (const nString_ptr  pSelf);		//8진수
+	bool               nString_isBinary                   (const nString_ptr  pSelf);		//2진수
 	bool               nString_Check                      (const wchar_t pChar, const nString_ptr pFindAry);
 	nString_ptr        nString_Format                     (const nString_ptr  pFormat, ...);
 	nString_ptr        nString_Notation                   (const int64_t pValue, const int pNotation);
@@ -134,3 +132,4 @@ JString::~JString()
 	delete m_values;
 	delete &m_length;
 }
+
