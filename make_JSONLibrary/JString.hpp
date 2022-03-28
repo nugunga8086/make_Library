@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <stringapiset.h>
 
 typedef const char* Chs_t;
 typedef const wchar_t* Wcs_t;
@@ -18,8 +19,8 @@ public:
 
 
 private:
-	const Wcs_t m_values;
-	const size_t m_length;
+	Wcs_t m_values;
+	size_t m_length;
 };
 
 /*
@@ -98,3 +99,34 @@ private:
 	Length_t           nStringAry_CountIf                 (const nStringAry_ptr  pSelf, bool (*pExpression)(nString_ptr, void *), void *pParam);
 	Length_t           nStringAry_Length                  (const nStringAry_ptr  pSelf);
 */
+
+JString::JString()
+{
+	
+}
+
+JString::JString(Chs_t p_value)
+{
+	wchar_t* pStr;
+	int strSize = MultiByteToWideChar(CP_ACP, 0, p_value, -1, NULL, NULL);
+	pStr = new wchar_t[strSize];
+	MultiByteToWideChar(CP_ACP, 0, p_value, strlen(p_value) + 1, pStr, strSize);
+
+	m_values = pStr;
+	m_length = wcslen(pStr);
+}
+
+JString::JString(Wcs_t p_value)
+{
+	m_values = p_value;
+	m_length = wcslen(p_value);
+}
+
+JString::JString(JString* p_value)
+{
+}
+
+JString::~JString()
+{
+
+}
