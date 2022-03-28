@@ -98,7 +98,8 @@ private:
 
 JString::JString()
 {
-	
+	m_values = new wchar_t[0];
+	m_length = wcslen(m_values);
 }
 
 JString::JString(Chs_t p_value)
@@ -120,9 +121,12 @@ JString::JString(Wcs_t p_value)
 
 JString::JString(JString* p_value)
 {
+	m_values = p_value->m_values;
+	m_length = p_value->m_length;
 }
 
 JString::~JString()
 {
-
+	delete m_values;
+	delete &m_length;
 }
