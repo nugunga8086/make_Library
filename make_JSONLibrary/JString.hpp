@@ -22,10 +22,11 @@ public:
 	
 	JString Join;
 
+	bool isAlpha();
 
 private:
-	Wcs_t m_values;
 	size_t m_length;
+	Wcs_t m_values;
 };
 
 /*
@@ -144,4 +145,55 @@ JString::~JString()
 {
 	delete m_values;
 	delete &m_length;
+}
+
+bool IsAlpha(int ch)
+{
+	return ch >= 'A' && ch <= 'z';
+}
+
+bool JString::IsAlpha()
+{
+	for (size_t i = 0; i < m_length; i++)		//size_t = 부호가 없는 int			m_length = 문자열의 길이
+		if (!__isAlpha(m_values[i]))
+			return false;
+	return true;
+}
+
+bool IsLower(int ch) 
+{
+	return ch >= 'a' && ch <= 'z';
+}
+
+bool JString::IsLower() 
+{
+	for (size_t i = 0; i < m_length; i++)
+		if (!__isLower(m_values[i])
+			return false;
+	return true;
+}
+
+bool IsUper(int ch) 
+{
+	return ch >= 'A' && ch <= 'Z';
+}
+
+bool JString::IsUper() 
+{
+	for (size_t i = 0; i < m_length; i++)
+		if (!__isLower(m_values[i]))
+			return false;
+	return true;
+}
+
+bool IsDecimal(int num) {
+	return num % 1 == 0
+}
+
+bool JString::IsDecimal() 
+{
+	for (size_t i = 0; i < m_length; i++)
+		if (!__isDecimal(m_values[i]))
+			return false;
+	return true;
 }
