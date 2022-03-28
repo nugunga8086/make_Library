@@ -25,6 +25,11 @@ public:
 	bool Compare(const JString  pSelf, const JString pValue);
 	string ToString(const JString pSelf);
 
+	
+	JString Join;
+
+	bool isAlpha();
+
 private:
 	Wcs_t m_values;
 	size_t m_length;
@@ -57,23 +62,23 @@ private:
 	Index_t            nString_IndexAt                    (const nString_ptr  pSelf, const nString_ptr pKeyWord, const Index_t pIndex);
 	Index_t            nString_IndexFor                   (const nString_ptr  pSelf, const nString_ptr pKeyWord, const Index_t pStart);
 	Index_t            nString_LastOfIndex                (const nString_ptr  pSelf, const nString_ptr pKeyWord);
-	nString_ptr        nString_Replace                    (const nString_ptr  pSelf, const nString_ptr pKeyWord, const nString_ptr pValue);
+	nString_ptr        nString_Replace                    (const nString_ptr  pSelf, const nString_ptr pKeyWord, const nString_ptr pValue);	
 	nString_ptr        nString_ReplaceAt                  (const nString_ptr  pSelf, const nString_ptr pKeyWord, const nString_ptr pValue, const Index_t pIndex);
 	nString_ptr        nString_ReplaceAll                 (const nString_ptr  pSelf, const nString_ptr pKeyWord, const nString_ptr pValue);
 	nStringAry_ptr     nString_Split                      (const nString_ptr  pSelf, const nString_ptr pKeyWord);
 	nString_ptr        nString_SubString                  (const nString_ptr  pSelf, const nString_ptr pKeyWord);
 	bool               nString_Pattern                    (const nString_ptr  pSelf, const nString_ptr pKeyWord);
-	bool               nString_isAlpha                    (const nString_ptr  pSelf);
-	bool               nString_isLower                    (const nString_ptr  pSelf);
-	bool               nString_isUpper                    (const nString_ptr  pSelf);
-	bool               nString_isDecimal                  (const nString_ptr  pSelf);
-	bool               nString_isDigit                    (const nString_ptr  pSelf);
-	bool               nString_isSpace                    (const nString_ptr  pSelf);
-	bool               nString_isAlphaDigit               (const nString_ptr  pSelf);
-	bool               nString_isHex                      (const nString_ptr  pSelf);
-	bool               nString_isControl                  (const nString_ptr  pSelf);
-	bool               nString_isOctal                    (const nString_ptr  pSelf);
-	bool               nString_isBinary                   (const nString_ptr  pSelf);
+	bool               nString_isAlpha                    (const nString_ptr  pSelf);		//알파벳
+	bool               nString_isLower                    (const nString_ptr  pSelf);		//소문자
+	bool               nString_isUpper                    (const nString_ptr  pSelf);		//대문자
+	bool               nString_isDecimal                  (const nString_ptr  pSelf);		//정수
+	bool               nString_isDigit                    (const nString_ptr  pSelf);		//실수
+	bool               nString_isSpace                    (const nString_ptr  pSelf);		//스페이스바
+	bool               nString_isAlphaDigit               (const nString_ptr  pSelf);		//알파벳 또는 실수
+	bool               nString_isHex                      (const nString_ptr  pSelf);		//16진수
+	bool               nString_isControl                  (const nString_ptr  pSelf);		//아스키코드 제어 문자인지 (0~32까지)
+	bool               nString_isOctal                    (const nString_ptr  pSelf);		//8진수
+	bool               nString_isBinary                   (const nString_ptr  pSelf);		//2진수
 	bool               nString_Check                      (const wchar_t pChar, const nString_ptr pFindAry);
 	nString_ptr        nString_Format                     (const nString_ptr  pFormat, ...);
 	nString_ptr        nString_Notation                   (const int64_t pValue, const int pNotation);
@@ -179,6 +184,47 @@ JString JString::Loop(const JString pSelf, const int length) {
 	for (int i = 0; i < i; i++)
 		s += wstring(ws1);
 	return new JString(s);
+bool IsAlpha(int ch)
+{
+	return ch >= 'A' && ch <= 'z';
+}
+
+bool JString::IsAlpha()
+{
+	for (size_t i = 0; i < m_length; i++)		//size_t = 부호가 없는 int			m_length = 문자열의 길이
+		if (!__isAlpha(m_values[i]))
+			return false;
+	return true;
+}
+
+bool IsLower(int ch) 
+{
+	return ch >= 'a' && ch <= 'z';
+}
+
+bool JString::IsLower() 
+{
+	for (size_t i = 0; i < m_length; i++)
+		if (!__isLower(m_values[i])
+			return false;
+	return true;
+}
+
+bool IsUper(int ch) 
+{
+	return ch >= 'A' && ch <= 'Z';
+}
+
+bool JString::IsUper() 
+{
+	for (size_t i = 0; i < m_length; i++)
+		if (!__isLower(m_values[i]))
+			return false;
+	return true;
+}
+
+bool IsDecimal(int num) {
+	return num % 1 == 0
 }
 
 bool JString::Compare(const JString  pSelf, const JString pValue) {
@@ -188,4 +234,11 @@ bool JString::Compare(const JString  pSelf, const JString pValue) {
 string JString::ToString(const JString pSelf) {
 	wstring ws(pSelf.m_values);
 	return string(ws.begin(), ws.end());
+}
+bool JString::IsDecimal() 
+{
+	for (size_t i = 0; i < m_length; i++)
+		if (!__isDecimal(m_values[i]))
+			return false;
+	return true;
 }
