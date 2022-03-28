@@ -23,12 +23,11 @@ public:
 	bool Append(JString  pSelf, const JString pValue);
 	JString Loop(const JString pSelf, const int length);
 	bool Compare(const JString  pSelf, const JString pValue);
+	bool IsAlpha();
+	bool IsLower();
+	bool IsUper();
+	bool IsDecimal();
 	string ToString(const JString pSelf);
-
-	
-	JString Join;
-
-	bool isAlpha();
 
 private:
 	Wcs_t m_values;
@@ -112,6 +111,7 @@ private:
 	Length_t           nStringAry_Length                  (const nStringAry_ptr  pSelf);
 */
 
+#pragma region JString Constructor
 JString::JString()
 {
 	m_values = new wchar_t[0];
@@ -151,8 +151,9 @@ JString::~JString()
 	delete m_values;
 	delete &m_length;
 }
+#pragma endregion
 
-//nstring_Join
+#pragma region JString Method
 JString JString::Join(const JString pSelf, const JString pValue) {
 	Wcs_t ws1 = pSelf.m_values, ws2 = pValue.m_values;
 	wstring s(ws1);
@@ -178,26 +179,32 @@ bool JString::Append(JString pSelf, const JString pValue)
 	
 }
 
+bool JString::Compare(const JString  pSelf, const JString pValue) {
+	return wcscmp(pSelf.m_values, pValue.m_values);
+}
+
 JString JString::Loop(const JString pSelf, const int length) {
 	Wcs_t ws1 = pSelf.m_values;
 	wstring s;
 	for (int i = 0; i < i; i++)
 		s += wstring(ws1);
 	return new JString(s);
-bool IsAlpha(int ch)
+}
+
+bool __IsAlpha(int ch)
 {
-	return ch >= 'A' && ch <= 'z';
+	return ch >= 'a' && ch <= 'z';
 }
 
 bool JString::IsAlpha()
 {
 	for (size_t i = 0; i < m_length; i++)		//size_t = 부호가 없는 int			m_length = 문자열의 길이
-		if (!__isAlpha(m_values[i]))
+		if (!__IsAlpha(m_values[i]))
 			return false;
 	return true;
 }
 
-bool IsLower(int ch) 
+bool __IsLower(int ch) 
 {
 	return ch >= 'a' && ch <= 'z';
 }
@@ -205,7 +212,7 @@ bool IsLower(int ch)
 bool JString::IsLower() 
 {
 	for (size_t i = 0; i < m_length; i++)
-		if (!__isLower(m_values[i])
+		if (!__IsLower(m_values[i]))
 			return false;
 	return true;
 }
@@ -218,27 +225,25 @@ bool IsUper(int ch)
 bool JString::IsUper() 
 {
 	for (size_t i = 0; i < m_length; i++)
-		if (!__isLower(m_values[i]))
+		if (!__IsLower(m_values[i]))
 			return false;
 	return true;
 }
 
-bool IsDecimal(int num) {
-	return num % 1 == 0
+bool __IsDecimal(int num) {
+	return num % 1 == 0;
 }
 
-bool JString::Compare(const JString  pSelf, const JString pValue) {
-	return wcscmp(pSelf.m_values, pValue.m_values);
+bool JString::IsDecimal() 
+{
+	for (size_t i = 0; i < m_length; i++)
+		if (!__IsDecimal(m_values[i]))
+			return false;
+	return true;
 }
 
 string JString::ToString(const JString pSelf) {
 	wstring ws(pSelf.m_values);
 	return string(ws.begin(), ws.end());
 }
-bool JString::IsDecimal() 
-{
-	for (size_t i = 0; i < m_length; i++)
-		if (!__isDecimal(m_values[i]))
-			return false;
-	return true;
-}
+#pragma endregion
