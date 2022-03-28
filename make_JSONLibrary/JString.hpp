@@ -14,6 +14,9 @@ public:
 	JString(Wcs_t p_value);
 	JString(JString* p_value);
 	~JString();
+	
+	JString Join;
+
 
 private:
 	Wcs_t m_values;
@@ -25,6 +28,7 @@ private:
 	
 	밑에는 내가 만들었었던 소스에서 그대로 가져온거라 이름만 가져오면 됨.
 
+	문자열 객채이름    자료형_메소드		              파라미터(메개변수   자기 자신     필요한 것들)
 	nString_ptr        nString_Join                       (const nString_ptr  pSelf, const nString_ptr pValue);
 	bool               nString_Append                     (      nString_ptr  pSelf, const nString_ptr pValue);
 	nString_ptr        nString_Loop                       (const nString_ptr  pSelf, const Length_t pLength);
