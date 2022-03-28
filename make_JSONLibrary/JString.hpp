@@ -2,9 +2,13 @@
 
 #include <vector>
 #include <stringapiset.h>
+#include <cstdio>
+
+using namespace std;
 
 typedef const char* Chs_t;
 typedef const wchar_t* Wcs_t;
+typedef const wstring Wstr;
 
 struct JString
 {
@@ -12,12 +16,11 @@ public:
 	JString();
 	JString(Chs_t p_value);
 	JString(Wcs_t p_value);
+	JString(Wstr p_value);
 	JString(JString* p_value);
 	~JString();
-	
-	JString Join;
 
-
+	JString nString_Join(const JString pSelf, const JString pValue);
 private:
 	Wcs_t m_values;
 	size_t m_length;
@@ -29,7 +32,7 @@ private:
 	밑에는 내가 만들었었던 소스에서 그대로 가져온거라 이름만 가져오면 됨.
 
 	문자열 객채이름    자료형_메소드		              파라미터(메개변수   자기 자신     필요한 것들)
-	nString_ptr        nString_Join                       (const nString_ptr  pSelf, const nString_ptr pValue);
+	nString_ptr        nString_Join                       (const nString_ptr  pSelf, const nString_ptr pValue); 
 	bool               nString_Append                     (      nString_ptr  pSelf, const nString_ptr pValue);
 	nString_ptr        nString_Loop                       (const nString_ptr  pSelf, const Length_t pLength);
 	bool               nString_Compare                    (const nString_ptr  pSelf, const nString_ptr pValue);
@@ -123,6 +126,12 @@ JString::JString(Wcs_t p_value)
 	m_length = wcslen(p_value);
 }
 
+JString::JString(Wstr p_value)
+{
+	m_values = p_value.c_str();
+	m_length = wcslen(p_value.c_str());
+}
+
 JString::JString(JString* p_value)
 {
 	m_values = p_value->m_values;
@@ -134,3 +143,11 @@ JString::~JString()
 	delete m_values;
 	delete &m_length;
 }
+
+JString JString::nString_Join(const JString pSelf, const JString pValue) {
+	Wcs_t ws1 = pSelf.m_values, ws2 = pValue.m_values;
+	std::wstring s(ws1);
+	s += std::wstring(ws2);
+	return new JString(s);
+}
+
