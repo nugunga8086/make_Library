@@ -4,6 +4,8 @@
 #include "JString.hpp"
 #include "JSON.hpp"
 
+using namespace std;
+
 void Initalized()
 {
     setlocale(LC_ALL, "");
@@ -49,5 +51,9 @@ int main()
     // 또한 이거는 집에 가서도 해라, 하면 할 수 록 실력이 많이 늘거임.
     #pragma endregion
 
-    std::cout << "Hello World!\n";
-}
+    JString test1 = new JString("Test1 ");
+    JString test2 = new JString("Test2 ");
+
+    JString result = test1.Join(test1, test2);
+    cout << result.ToString(result);
+;}

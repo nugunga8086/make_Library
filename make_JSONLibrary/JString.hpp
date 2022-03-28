@@ -1,7 +1,6 @@
 #pragma once
 
 #include <vector>
-#include <stringapiset.h>
 #include <cstdio>
 
 using namespace std;
@@ -21,7 +20,11 @@ public:
 	~JString();
 
 	JString Join(const JString pSelf, const JString pValue);
-	bool Append(const JString  pSelf, const JString pValue);
+	bool Append(JString  pSelf, const JString pValue);
+	JString Loop(const JString pSelf, const int length);
+	bool Compare(const JString  pSelf, const JString pValue);
+	string ToString(const JString pSelf);
+
 private:
 	Wcs_t m_values;
 	size_t m_length;
@@ -112,13 +115,12 @@ JString::JString()
 
 JString::JString(Chs_t p_value)
 {
-	wchar_t* pStr;
-	int strSize = MultiByteToWideChar(CP_ACP, 0, p_value, -1, NULL, NULL);
-	pStr = new wchar_t[strSize];
-	MultiByteToWideChar(CP_ACP, 0, p_value, strlen(p_value) + 1, pStr, strSize);
+	std::string message_a = p_value;
+	std::wstring message_w;
+	message_w.assign(message_a.begin(), message_a.end());
 
-	m_values = pStr;
-	m_length = wcslen(pStr);
+	m_values = message_w.c_str();
+	m_length = message_w.size();
 }
 
 JString::JString(Wcs_t p_value)
@@ -148,8 +150,42 @@ JString::~JString()
 //nstring_Join
 JString JString::Join(const JString pSelf, const JString pValue) {
 	Wcs_t ws1 = pSelf.m_values, ws2 = pValue.m_values;
-	std::wstring s(ws1);
-	s += std::wstring(ws2);
+	wstring s(ws1);
+	s += wstring(ws2);
 	return new JString(s);
 }
 
+bool JString::Append(JString pSelf, const JString pValue)
+{
+	try
+	{
+		Wcs_t ws1 = pSelf.m_values, ws2 = pValue.m_values;
+		wstring s(ws1);
+		s += wstring(ws2);
+		m_values = s.c_str();
+		m_length = s.size();
+		return true;
+	}
+	catch (const std::exception&)
+	{
+		return false;
+	}
+	
+}
+
+JString JString::Loop(const JString pSelf, const int length) {
+	Wcs_t ws1 = pSelf.m_values;
+	wstring s;
+	for (int i = 0; i < i; i++)
+		s += wstring(ws1);
+	return new JString(s);
+}
+
+bool JString::Compare(const JString  pSelf, const JString pValue) {
+	return wcscmp(pSelf.m_values, pValue.m_values);
+}
+
+string JString::ToString(const JString pSelf) {
+	wstring ws(pSelf.m_values);
+	return string(ws.begin(), ws.end());
+}
