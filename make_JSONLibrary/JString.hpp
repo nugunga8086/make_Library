@@ -228,7 +228,7 @@ bool JString::IsUper()
 	return true;
 }
 
-bool __IsDecimal(int num) {
+bool __IsDecimal(double num) {
 	return num % 1 == 0;
 }
 
@@ -239,6 +239,17 @@ bool JString::IsDecimal()
 			return false;
 	return true;
 }
+
+//bool __IsDigit()	실수는 딱히 구분을 할 필요가 없을듯?
+
+bool JString::IsDigit() {
+	for (size_t i = 0; i < m_length; i++)
+		if (!IsDigit(m_values[i]))
+			return false;
+	return true;
+}
+
+
 
 string JString::ToString(const JString pSelf) {
 	wstring ws(pSelf.m_values);
