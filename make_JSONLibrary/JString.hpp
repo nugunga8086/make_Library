@@ -1,11 +1,12 @@
 #pragma once
-
 #include <vector>
 #include <cstdio>
 #include <cstring>
 
 typedef const char* Chs_t;
 typedef const wchar_t* Wcs_t;
+
+using namespace std;
 
 struct JString
 {
@@ -24,6 +25,7 @@ public:
 	bool IsAlpha();
 	bool IsLower();
 	bool IsUper();
+	bool IsDigit();
 	bool IsDecimal();
 	string ToString(const JString pSelf);
 
@@ -229,27 +231,23 @@ bool JString::IsUper()
 }
 
 bool __IsDecimal(double num) {
-	return num % 1 == 0;
+	return (int)num % 1 == 0;
 }
 
 bool JString::IsDecimal() 
 {
 	for (size_t i = 0; i < m_length; i++)
-		if (!__IsDecimal(m_values[i]))
+		if (!__IsDecimal(m_values[i])) //실수가 아닐경우 리턴
 			return false;
 	return true;
 }
-
-//bool __IsDigit()	실수는 딱히 구분을 할 필요가 없을듯?
 
 bool JString::IsDigit() {
 	for (size_t i = 0; i < m_length; i++)
-		if (!IsDigit(m_values[i]))
+		if (__IsDecimal(m_values[i])) //실수인경우 리턴
 			return false;
 	return true;
 }
-
-
 
 string JString::ToString(const JString pSelf) {
 	wstring ws(pSelf.m_values);
